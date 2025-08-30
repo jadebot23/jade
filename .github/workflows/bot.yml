@@ -1,0 +1,32 @@
+name: Run Telegram Bot
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'  # Ejecutar diariamente
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+      
+    - name: Run bot
+      env:
+        TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+      run: python bot.py &
+      
+    - name: Keep alive
+      run: |
+        echo "Bot is running"
+        sleep 300  # Mantener vivo por 5 minutos
