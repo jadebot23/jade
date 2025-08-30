@@ -11,7 +11,8 @@ logging.basicConfig(
     level=logging.INFO
 )
 
-TOKEN = "TELEGRAM_TOKEN"  # Reemplaza con tu token
+# ✅ PON ESTO:
+TOKEN = os.environ.get('TELEGRAM_TOKEN')  # Reemplaza con tu token
 
 # Base de datos simple
 def init_db():
